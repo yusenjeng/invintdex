@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static lastweek %}
+
+{% block js %}
+<link rel="stylesheet" href="{% static 'control/css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+  <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Dashboard</a>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Crawler <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+      <h2 id="dashboard-subtitle">Manually Control</h2>
+      <div id="ticker-manager" class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>Parameter</th>
+              <th>Command</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="upd_sp500_list">
+              <td>S&P500 List</td>
+              <td></td>
+              <td><button type="button" class="btn btn-outline-primary run">Import</button></td>
+              <td class="result">
+                  <span class="badge badge-pill badge-success status">Success</span>
+                  <span class="badge badge-pill badge-danger status">Fail</span>
+              </td>
+            </tr>
+            <tr id="upd_nasdaq_nyse_list">
+              <td>NASDAQ/NYSE List</td>
+              <td></td>
+              <td><button type="button" class="btn btn-outline-primary run">Import</button></td>
+              <td class="result">
+                  <span class="badge badge-pill badge-success status">Success</span>
+                  <span class="badge badge-pill badge-danger status">Fail</span>
+              </td>
+            </tr>
+            <tr id="import_etf">
+                <td>ETF List</td>
+                <td></td>
+                <td><button type="button" class="btn btn-outline-primary run">Import</button></td>
+                <td class="result">
+                    <span class="badge badge-pill badge-success status">Success</span>
+                    <span class="badge badge-pill badge-danger status">Fail</span>
+                </td>
+              </tr>
+            <tr id="upd_ticker_price">
+                <td>Update Ticker</td>
+                <td>
+                  <span>Ticker</span> <input class="ticker" type="text" value="SPY">
+                  <span>From</span><input class="date_from" type="text" value="{% lastweek "%Y-%m-%d" %}">
+                  <span>To</span><input class="date_to" type="text" value="{% now "Y-m-d" %}">
+                </td>
+                <td><button type="button" class="btn btn-outline-primary run">Update</button></td>
+                <td class="result">
+                    <span class="badge badge-pill badge-success status">Success</span>
+                    <span class="badge badge-pill badge-danger status">Fail</span>
+                </td>
+              </tr>
+
+              <tr id="upd_etf_tickers">
+                <td>Update ETF Tickers</td>
+                <td>
+                  <span>From</span><input class="date_from" type="text" value="{% lastweek "%Y-%m-%d" %}">
+                  <span>To</span><input class="date_to" type="text" value="{% now "Y-m-d" %}">
+                </td>
+                <td><button type="button" class="btn btn-outline-primary run">Update</button></td>
+                <td class="result">
+                    <span class="badge badge-pill badge-success status">Success</span>
+                    <span class="badge badge-pill badge-danger status">Fail</span>
+                </td>
+              </tr>
+
+              <tr id="upd_all_tickers">
+                <td>Update Stock Tickers</td>
+                <td>
+                  <span>From</span><input class="date_from" type="text" value="{% lastweek "%Y-%m-%d" %}">
+                  <span>To</span><input class="date_to" type="text" value="{% now "Y-m-d" %}">
+                  <span>Ticker From</span> <input class="ticker" type="text" placeholder="Ticker">
+                </td>
+                <td><button type="button" class="btn btn-outline-primary run">Update</button></td>
+                <td class="result">
+                    <span class="badge badge-pill badge-success status">Success</span>
+                    <span class="badge badge-pill badge-danger status">Fail</span>
+                </td>
+              </tr>
+
+              <tr id="upd_ticker_financials">
+                <td>Update Ticker Financials</td>
+                <td>
+                  <span>Ticker</span> <input class="ticker" type="text" value="AAPL">
+                </td>
+                <td><button type="button" class="btn btn-outline-primary run">Update</button></td>
+                <td class="result">
+                    <span class="badge badge-pill badge-success status">Success</span>
+                    <span class="badge badge-pill badge-danger status">Fail</span>
+                </td>
+              </tr>
+
+              <tr id="upd_all_financials">
+                <td>Update All Financials</td>
+                <td>
+                  <span>From</span> <input class="ticker" type="text" placeholder="Ticker">
+                </td>
+                <td><button type="button" class="btn btn-outline-primary run">Update</button></td>
+                <td class="result">
+                    <span class="badge badge-pill badge-success status">Success</span>
+                    <span class="badge badge-pill badge-danger status">Fail</span>
+                </td>
+              </tr>
+
+              <tr id="gen_ticker_list">
+                  <td>Generate Ticker List</td>
+                  <td>
+                  </td>
+                  <td><button type="button" class="btn btn-outline-primary run">Generate</button></td>
+                  <td class="result">
+                      <span class="badge badge-pill badge-success status">Success</span>
+                      <span class="badge badge-pill badge-danger status">Fail</span>
+                  </td>
+                </tr>
+              </tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div><!-- End of Row -->
+</div>  <!-- End of container-fluid -->
+
+<script>
+  $.fn.initDashboard();
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "tickerbase.html" %} {% load static lastweek %} {% block js %}
+<link rel="stylesheet" href="{% static 'ticker/css/entrance.css' %}">
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="{% static 'ticker/js/jquery.rss.min.js' %}"></script>
+{% endblock %} {% block content %}
+
+
+
+<!-- Begin page content -->
+
+<main role="main" class="container">
+  <section class="indices">
+    <h6>Quotes</h6>
+    <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSlrGOlt9Xe3HVbx-d6_sqkFx2COledw89nTgZSA7O68FgmqlKlrTAU9EcQrqHBM2OdWn_swQ7p3P-i/pubhtml?gid=0&amp;single=true&amp;widget=false&amp;headers=false&chrome=false&range=B1:D12"
+      frameborder='0' scrolling='no'></iframe>
+  </section>
+  <section class="news">
+    <h6>News</h6>
+    <div id="rss"></div>
+  </section>
+</main>
+
+
+<script>
+  $.fn.initBase('home');
+  $.fn.initEntranceViewer();
+</script>
+{% endblock %}

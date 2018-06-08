@@ -1,0 +1,44 @@
+{% extends "tickerbase.html" %} {% load static lastweek %} {% block js %}
+<link rel="stylesheet" href="{% static 'ticker/css/ticker.css' %}">
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="{% static 'ticker/js/jquery.rss.min.js' %}"></script>
+{% endblock %} {% block content %}
+
+<header>
+</header>
+
+<!-- Begin page content -->
+<main role="main" class="container">
+  <p class="date"></p>
+  <p class="lead">{{ name }}
+    <span>({{ ticker }})</span>
+  </p>
+  <p>
+    <span class="price"></span>
+    <span class="change"></span>
+  </p>
+  <div id="chart" class="chart">
+    <div class="loader">Loading...</div>
+  </div>
+  <div id="rss"></div>
+
+  <p></p>
+
+  <div id="revenue" class="card-chart"></div>
+  <div id="debt" class="card-chart"></div>
+  <div id="cashflow" class="card-chart"></div>
+  <div id="margin" class="card-chart"></div>
+  <div id="cycle" class="card-chart"></div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <span class="text-muted">Place sticky footer content here.</span>
+  </div>
+</footer>
+
+<script>
+  $.fn.initBase();
+  $.fn.initTickerViewer('{{ ticker }}', '{{ name }}');
+</script>
+{% endblock %}

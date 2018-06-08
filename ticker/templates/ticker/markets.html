@@ -1,0 +1,220 @@
+{% extends "tickerbase.html" %} {% load static lastweek %} {% block js %}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css" />
+<link rel="stylesheet" href="{% static 'ticker/css/markets.css' %}">
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="{% static 'ticker/js/jquery.rss.min.js' %}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>
+<script src="{% static 'ticker/js/synchronizer.js' %}"></script>
+{% endblock %} {% block content %}
+
+<!-- Begin page content -->
+<main role="main" class="container">
+    <section class="chartlist">
+        <div class="chartarea">
+            <div id="tbond1" class="largechart chartA"></div>
+            <div id="tbond2" class="largechart chartB"></div>
+        </div>
+
+        <div class="chartarea">
+            <div id="emdev1" class="largechart chartA"></div>
+            <div id="emdev2" class="largechart chartB"></div>
+        </div>
+
+        <div class="chartarea">
+            <div id="cbond1" class="largechart chartA"></div>
+            <div id="cbond2" class="largechart chartB"></div>
+        </div>
+    </section>
+</main>
+
+
+<script>
+    $.fn.initBase('markets');
+    $.fn.initMarketsViewer();
+
+    var nan = null;
+
+
+    //
+    // US Treasury Bonds: Long-term, mid-term and short-term
+    //
+    var tbond_data1 = `{{tbonds.data1}}`;
+    var tbond_data2 = `{{tbonds.data2}}`;
+
+    var series = {
+{% for s in tbonds.subtitle %}
+        '{{s}}' : { strokeWidth: 1.5, axis: 'y2'},
+{% endfor %}
+    }
+
+    tbond_g1 = new Dygraph(document.getElementById("tbond1"), tbond_data1, {
+        strokeWidth: 1,
+{% if tbonds.logscale %}
+        logscale: true,
+{% endif %}
+        title: '{{tbonds.title|safe}}',
+        y2label: '{{tbonds.yLabel|safe}}',
+        //animatedZooms: true,
+{% if tbonds.rollPeriod %}
+        rollPeriod: {{tbonds.rollPeriod}},
+{% else %}
+        rollPeriod: 0,
+{% endif %}
+
+{% if request.user_agent.is_mobile %}
+        interactionModel: {},
+        width:$.m.marketsViewer.w,
+{% endif %}
+
+        colors: $.m.marketsViewer.colors,
+        axes: $.m.marketsViewer.axes,
+        series: series
+    });
+
+    tbond_g2 = new Dygraph(document.getElementById("tbond2"), tbond_data2, {
+        //logscale: true,
+{% if request.user_agent.is_mobile %}
+        interactionModel: {},
+        width:$.m.marketsViewer.w,
+{% endif %}
+        y2label: '{{tbonds.yLabel2|safe}}',
+        rollPeriod: 0,
+        colors: $.m.marketsViewer.colors2,
+        axes: $.m.marketsViewer.axes,
+        series: {
+            '{{tbonds.subtitle2.1}}': {
+                strokeWidth: 1.5,
+                axis: 'y2'
+            }
+        }
+    });
+
+    var tbond_gs = [tbond_g1, tbond_g2];
+    var tbond_sync = Dygraph.synchronize(tbond_gs);
+
+    tbond_sync.detach();
+    tbond_sync = Dygraph.synchronize(tbond_gs);
+
+
+    //
+    // Emerging / Developed Market
+    //
+    var emdev_data1 = `{{emdev.data1}}`;
+    var emdev_data2 = `{{emdev.data2}}`;
+
+    var series = {
+{% for s in emdev.subtitle %}
+        '{{s}}' : { strokeWidth: 1.5, axis: 'y2'},
+{% endfor %}
+    }
+
+    emdev_g1 = new Dygraph(document.getElementById("emdev1"), emdev_data1, {
+        strokeWidth: 1,
+{% if emdev.logscale %}
+        logscale: true,
+{% endif %}
+        title: '{{emdev.title|safe}}',
+        y2label: '{{emdev.yLabel|safe}}',
+        //animatedZooms: true,
+{% if emdev.rollPeriod %}
+        rollPeriod: {{emdev.rollPeriod}},
+{% else %}
+        rollPeriod: 0,
+{% endif %}
+
+{% if request.user_agent.is_mobile %}
+        interactionModel: {},
+        width:$.m.marketsViewer.w,
+{% endif %}
+
+        colors: $.m.marketsViewer.colors,
+        axes: $.m.marketsViewer.axes,
+        series: series
+    });
+
+    emdev_g2 = new Dygraph(document.getElementById("emdev2"), emdev_data2, {
+        //logscale: true,
+{% if request.user_agent.is_mobile %}
+        interactionModel: {},
+        width:$.m.marketsViewer.w,
+{% endif %}
+        y2label: '{{emdev.yLabel2|safe}}',
+        rollPeriod: 0,
+        colors: $.m.marketsViewer.colors2,
+        axes: $.m.marketsViewer.axes,
+        series: {
+            '{{emdev.subtitle2.1}}': {
+                strokeWidth: 1.5,
+                axis: 'y2'
+            }
+        }
+    });
+
+    var emdev_gs = [emdev_g1, emdev_g2];
+    var emdev_sync = Dygraph.synchronize(emdev_gs);
+
+    emdev_sync.detach();
+    emdev_sync = Dygraph.synchronize(emdev_gs);
+
+    //
+    // Corporate Bonds: High Yield / Investment Grade
+    //
+    var cbond_data1 = `{{cbonds.data1}}`;
+    var cbond_data2 = `{{cbonds.data2}}`;
+
+    var series = {
+{% for s in cbonds.subtitle %}
+        '{{s}}' : { strokeWidth: 1.5, axis: 'y2'},
+{% endfor %}
+    }
+
+    cbond_g1 = new Dygraph(document.getElementById("cbond1"), cbond_data1, {
+        strokeWidth: 1,
+{% if cbonds.logscale %}
+        logscale: true,
+{% endif %}
+        title: '{{cbonds.title|safe}}',
+        y2label: '{{cbonds.yLabel|safe}}',
+        //animatedZooms: true,
+{% if cbonds.rollPeriod %}
+        rollPeriod: {{cbonds.rollPeriod}},
+{% else %}
+        rollPeriod: 0,
+{% endif %}
+
+{% if request.user_agent.is_mobile %}
+        interactionModel: {},
+        width:$.m.marketsViewer.w,
+{% endif %}
+
+        colors: $.m.marketsViewer.colors,
+        axes: $.m.marketsViewer.axes,
+        series: series
+    });
+
+    cbond_g2 = new Dygraph(document.getElementById("cbond2"), cbond_data2, {
+        //logscale: true,
+{% if request.user_agent.is_mobile %}
+        interactionModel: {},
+        width:$.m.marketsViewer.w,
+{% endif %}
+        y2label: '{{cbonds.yLabel2|safe}}',
+        rollPeriod: 0,
+        colors: $.m.marketsViewer.colors2,
+        axes: $.m.marketsViewer.axes,
+        series: {
+            '{{cbonds.subtitle2.1}}': {
+                strokeWidth: 1.5,
+                axis: 'y2'
+            }
+        }
+    });
+
+    var cbond_gs = [cbond_g1, cbond_g2];
+    var cbond_sync = Dygraph.synchronize(cbond_gs);
+
+    cbond_sync.detach();
+    cbond_sync = Dygraph.synchronize(cbond_gs);
+
+</script>
+{% endblock %}

@@ -1,0 +1,122 @@
+section h6 {
+    margin: 10px 0 2px 0;
+    padding: 6px 0;
+    /* border-bottom: 1px solid #ddd; */
+}
+
+.container section {
+    display: inline-block;
+}
+
+section h6 {
+    /* margin: 10px 0 2px 0; */
+    /* padding: 6px 0; */
+    border-bottom: 1px solid #ddd;
+}
+
+.chartlist {
+    width: 100%;
+    /* max-width: 800px; */
+}
+
+.largechart {
+    /*width: 100% !important;*/
+    /*display: inline-block !important;*/
+    height: 120px;
+    margin: 0 0 10px 0 !important;
+    position: relative;
+    padding: 0;
+}
+
+.chartarea {
+    background: #f3f5f6;
+    /* padding:1px; */
+    margin: 60px 0 10px 0 !important;
+    width: 100%;
+}
+
+.chartarea .dygraph-axis-label-x {
+    display: none;
+}
+
+.chartarea .date {
+    float: right;
+    color: #666;
+    margin: 70px 10px 0px 10px;
+    font-family: Georgia, Verdana, serif;
+    font-size: 12px;
+    display: none;
+}
+
+.chartarea .date span {
+    border: 1px solid #ddd;
+    color: black;
+    padding: 4px 8px;
+    margin: 0 4px;
+}
+
+.chartA {
+    height: 300px;
+}
+
+.chartB {
+    height: 150px;
+}
+
+.chartC {
+    height: 80px;
+}
+
+.dygraph-axis-label-x {
+    display: inherit !important;
+}
+
+.largechart .dygraph-legend {
+    margin-left: -100px;
+    width: 100px;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 8px #aaa;
+    margin-top: -35px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.largechart .dygraph-label {
+    font-family: Georgia, Verdana, serif;
+}
+
+.largechart .dygraph-title {
+    font-size: 20px;
+    text-shadow: #aaaaaa 0px 0px 1px;
+    text-align: center;
+    margin-top: -30px;
+}
+
+.largechart .dygraph-axis-label-y {
+    font-size: 10px;
+}
+
+.largechart .dygraph-axis-label-y1 {
+    display: none;
+}
+
+.largechart .dygraph-y2label {
+    position: relative;
+    font-size: 14px;
+    text-shadow: #aaaaaa 0px 0px 1px;
+    text-align: center;
+    left: -30px;
+    top: 8px;
+    /* transform: rotate(90deg); */
+}
+
+.largechart .dygraph-annotation {
+    position: absolute;
+    border: 1px solid #666 !important;
+    padding: 2px;
+    line-height: 10px;
+    color: black !important;
+    background: #fefefe;
+    width: auto !important;
+    font-size: 12px !important;
+}
