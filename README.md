@@ -1,2 +1,3 @@
 # invintdex
-A website gathers value investing resources  http://invintdex.com/
+A website gathering value investing resources  
+<http://invintdex.com/>
